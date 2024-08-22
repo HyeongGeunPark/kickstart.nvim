@@ -26,7 +26,11 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 
 -- Save undo history
-vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
+if vim.fn.has 'win32' == 1 then
+	vim.opt.undodir = os.getenv 'userprofile' .. '/.vim/undodir'
+else
+	vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
+end
 vim.opt.undofile = true
 
 -- incremental search
