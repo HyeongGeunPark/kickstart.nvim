@@ -19,7 +19,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 -- auto wrap
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 -- Do not make any backup files
 vim.opt.swapfile = false
@@ -27,9 +27,9 @@ vim.opt.backup = false
 
 -- Save undo history
 if vim.fn.has 'win32' == 1 then
-	vim.opt.undodir = os.getenv 'userprofile' .. '/.vim/undodir'
+  vim.opt.undodir = os.getenv 'userprofile' .. '/.vim/undodir'
 else
-	vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
+  vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
 end
 vim.opt.undofile = true
 
@@ -91,4 +91,18 @@ vim.opt.scrolloff = 10
 vim.opt.termguicolors = true
 
 -- colored column at 80 characters width
-vim.opt.colorcolumn = '80'
+-- vim.opt.colorcolumn = '80'
+
+-- use directory specific configuration
+vim.o.exrc = true
+
+-- internal terminal settings
+if vim.fn.has 'win32' == 1 then
+  vim.o.shell = 'powershell'
+  vim.o.shellcmdflag =
+    '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+  vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit %LastExitCode'
+  vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit %LastExitCode'
+  vim.o.shellquote = ''
+  vim.o.shellxquote = ''
+end
